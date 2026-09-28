@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+Transacciones
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Transacciones</h1>
+        <p>Consulta los movimientos de tus cuentas.</p>
+    </div>
+
+    <a href="{% url 'transaccion-create' %}" class="btn btn-primary">
+        Nueva transacción
+    </a>
+</div>
+<div class="card">
+
+    {% if transacciones %}
+
+        <div class="table-container">
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Cuenta</th>
+                        <th>Cliente</th>
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for transaccion in transacciones %}
+
+                        <tr>
+                            <td>
+                                {{ transaccion.cuenta.numero }}
+                            </td>
+
+                            <td>
+                                {{ transaccion.cuenta.cliente.nombre }}
+                            </td>
+
+                            <td>
+                                {{ transaccion.get_tipo_display }}
+                            </td>
+
+                            <td>
+                                ${{ transaccion.monto }}
+                            </td>
+
+                            <td>
+                                {{ transaccion.descripcion }}
+                            </td>
+
+                            <td>
+                                {{ transaccion.fecha|date:"d/m/Y H:i" }}
+                            <td>
+                                <a href="{% url 'transaccion-update' transaccion.pk %}" class="btn btn-secondary">
+                                    Editar
+                                </a>
+
+                                <a href="{% url 'transaccion-delete' transaccion.pk %}" class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    {% else %}
+
+        <p>No hay transacciones registradas.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

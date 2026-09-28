@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+Mis cuentas
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Mis cuentas</h1>
+        <p>Consulta tus cuentas y saldos disponibles.</p>
+    </div>
+
+    <a href="{% url 'cuenta-create' %}" class="btn btn-primary">
+        Nueva cuenta
+    </a>
+</div>
+
+<div class="card">
+
+    {% if cuentas %}
+
+        <div class="table-container">
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Número de cuenta</th>
+                        <th>Cliente</th>
+                        <th>Saldo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for cuenta in cuentas %}
+
+                        <tr>
+                            <td>{{ cuenta.numero }}</td>
+
+                            <td>
+                                {{ cuenta.cliente.nombre }}
+                            </td>
+
+                            <td>
+                                ${{ cuenta.saldo }}
+                            </td>
+                            <td>
+                                <a href="{% url 'cuenta-update' cuenta.pk %}" class="btn btn-secondary">
+                                    Editar
+                                </a>
+
+                                <a href="{% url 'cuenta-delete' cuenta.pk %}" class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    {% else %}
+
+        <p>No hay cuentas registradas.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Nueva transacción
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Nueva transacción</h1>
+        <p>Registra un depósito o retiro.</p>
+    </div>
+</div>
+
+<div class="card form-card">
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="form-actions">
+
+            <button type="submit" class="btn btn-primary">
+                Guardar transacción
+            </button>
+
+            <a
+                href="{% url 'transaccion-list' %}"
+                class="btn btn-secondary"
+            >
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

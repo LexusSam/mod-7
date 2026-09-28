@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Eliminar cuenta
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Eliminar cuenta</h1>
+        <p>Confirma si deseas eliminar esta cuenta.</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="warning">
+        <p>
+            ¿Estás seguro de que deseas eliminar la cuenta
+            <strong>{{ cuenta.numero }}</strong>?
+        </p>
+
+        <p>
+            Cliente: <strong>{{ cuenta.cliente.nombre }}</strong>
+        </p>
+
+        <p>
+            Saldo actual: <strong>${{ cuenta.saldo }}</strong>
+        </p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">
+                Sí, eliminar
+            </button>
+
+            <a href="{% url 'cuenta-list' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

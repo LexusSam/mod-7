@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Clientes | Alke Wallet
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1 class="page-title">
+            Clientes
+        </h1>
+
+        <p class="page-description">
+            Administración de clientes de Alke Wallet.
+        </p>
+    </div>
+
+    <a href="{% url 'cliente-create' %}" class="btn btn-primary">
+        + Nuevo cliente
+    </a>
+
+</div>
+
+
+<div class="card">
+
+    {% if clientes %}
+
+        <div class="table-container">
+
+            <table class="data-table">
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for cliente in clientes %}
+
+                    <tr>
+
+                        <td>
+                            {{ cliente.nombre }}
+                        </td>
+
+                        <td>
+                            {{ cliente.email }}
+                        </td>
+
+                        <td>
+                            {{ cliente.telefono|default:"No informado" }}
+                        </td>
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a
+                                    href="{% url 'cliente-detail' cliente.pk %}"
+                                    class="btn btn-secondary"
+                                >
+                                    Ver
+                                </a>
+
+                                <a
+                                    href="{% url 'cliente-update' cliente.pk %}"
+                                    class="btn btn-primary"
+                                >
+                                    Editar
+                                </a>
+
+                                <a
+                                    href="{% url 'cliente-delete' cliente.pk %}"
+                                    class="btn btn-danger"
+                                >
+                                    Eliminar
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <p>
+            No existen clientes registrados.
+        </p>
+
+        <br>
+
+        <a href="{% url 'cliente-create' %}" class="btn btn-primary">
+            Crear primer cliente
+        </a>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

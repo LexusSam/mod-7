@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+Eliminar transacción
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Eliminar transacción</h1>
+        <p>Confirma si deseas eliminar este movimiento.</p>
+    </div>
+</div>
+
+<div class="card">
+
+    <div class="warning">
+
+        <p>
+            ¿Estás seguro de que deseas eliminar esta transacción?
+        </p>
+
+        <p>
+            Cuenta:
+            <strong>{{ transaccion.cuenta.numero }}</strong>
+        </p>
+
+        <p>
+            Tipo:
+            <strong>{{ transaccion.get_tipo_display }}</strong>
+        </p>
+
+        <p>
+            Monto:
+            <strong>${{ transaccion.monto }}</strong>
+        </p>
+
+        {% if transaccion.descripcion %}
+            <p>
+                Descripción:
+                <strong>{{ transaccion.descripcion }}</strong>
+            </p>
+        {% endif %}
+
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-actions">
+
+            <button type="submit" class="btn btn-danger">
+                Sí, eliminar
+            </button>
+
+            <a href="{% url 'transaccion-list' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

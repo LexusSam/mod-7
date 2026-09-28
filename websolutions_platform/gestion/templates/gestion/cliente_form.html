@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}
+        Editar cliente
+    {% else %}
+        Nuevo cliente
+    {% endif %}
+    | Alke Wallet
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        {% if object %}
+            <h1 class="page-title">
+                Editar cliente
+            </h1>
+
+            <p class="page-description">
+                Modifica la información del cliente.
+            </p>
+
+        {% else %}
+
+            <h1 class="page-title">
+                Nuevo cliente
+            </h1>
+
+            <p class="page-description">
+                Ingresa los datos del nuevo cliente.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        {% for field in form %}
+
+            <div class="form-group">
+
+                {{ field.label_tag }}
+
+                {{ field }}
+
+                {% if field.errors %}
+
+                    <div class="warning">
+                        {{ field.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+
+        <div class="form-actions">
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Guardar
+            </button>
+
+            <a
+                href="{% url 'cliente-list' %}"
+                class="btn btn-light"
+            >
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
